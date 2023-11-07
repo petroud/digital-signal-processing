@@ -75,3 +75,37 @@ title('Frequency response for [-\pi,\pi] with step = \pi/128')
 
 
 %% Exercise 2
+
+clear all;
+clc;
+
+% Set the numerator and denominator details
+num = [4.0 -3.5 0];
+denom = [1.0 -2.5 1.0];
+
+
+% Question A
+
+% Find zeroes and poles of the TF 
+[r, p] = residuez(num, denom)
+
+
+syms z
+
+%Model the transfer function using simple fractions
+H = r(1) / (1-p(1)*z^-1)  +  r(2) / (1-p(2)*z^-1);
+
+%Print pretty the tf in the command line
+pretty(H)
+
+
+% Question B
+
+% Calculate the inverse Z-Transform of H(z)
+invZ = iztrans(H)
+
+
+
+
+
+
