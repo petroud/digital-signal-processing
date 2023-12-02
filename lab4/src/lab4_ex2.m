@@ -83,11 +83,78 @@ xlabel('F(Hz');
 
 
 
-
 %% Question (b)
 
 Fs_B = 100; %Sampling Frequency
 Ts_B = 1/Fs_B;
+
+%Set the sample space
+N  = 500;
+n = 0:N-1;
+
+%Set the signal
+x = sin(15*n*Ts_B) + 0.25*sin(200*n*Ts_B);
+
+
+%Set the new frequency axis needed after the Fourier Transform and the
+%applied sampling
+f_axis = -Fs/2:Fs/N:Fs/2-Fs/N;
+
+%Calculate the FT of x(t)
+X = fftshift(fft(x));
+
+%Filter the signal using the 4 filters
+x_hamm21 = filter(hamm21, 1, x);
+x_hamm41 = filter(hamm41, 1, x);
+x_hann21 = filter(hann21, 1, x);
+x_hann41 = filter(hann41, 1, x);
+
+%Calculate FT of each filtered result to get the spectrum
+X_mm21 = fftshift(fft(x_hamm21));
+X_mm41 = fftshift(fft(x_hamm41));
+X_nn21 = fftshift(fft(x_hann21));
+X_nn41 = fftshift(fft(x_hann41));
+
+figure()
+subplot(3,1,1);
+plot(f_axis, abs(X));
+xlabel('F(Hz)');
+ylabel('|X(F)|')
+title('Spectrum of x(t)(X(F))');
+
+subplot(3,1,2);
+plot(f_axis, abs(X_mm21));
+xlabel('F(Hz)');
+ylabel('|X(F)|');
+title('X(F) filtered using Hamming with N=21');
+
+subplot(3,1,3);
+plot(f_axis, abs(X_mm41));
+xlabel('F(Hz)');
+ylabel('|X(F)|');
+title('X(F) filtered using Hamming with N=41');
+
+
+figure()
+subplot(3,1,1);
+plot(f_axis, abs(X));
+xlabel('F(Hz)');
+ylabel('|X(F)|')
+title('Spectrum of x(t)(X(F))');
+
+subplot(3,1,2);
+plot(f_axis, abs(X_nn21));
+xlabel('F(Hz)');
+ylabel('|X(F)|');
+title('X(F) filtered using Hanning with N=21');
+
+subplot(3,1,3);
+plot(f_axis, abs(X_nn41));
+xlabel('F(Hz)');
+ylabel('|X(F)|');
+title('X(F) filtered using Hanning with N=41');
+
+
 
 
 %% Question (c)
