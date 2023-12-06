@@ -89,7 +89,7 @@ Fs_B = 100; %Sampling Frequency
 Ts_B = 1/Fs_B;
 
 %Set the sample space
-N  = 500;
+N  = 2048;
 n = 0:N-1;
 
 %Set the signal
@@ -163,7 +163,7 @@ Fs_C = 50; %Sampling Frequency
 Ts_C = 1/Fs_C;
 
 %Set the sample space
-N  = 500;
+N  = 2048;
 n = 0:N-1;
 
 %Set the signal
